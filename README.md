@@ -83,11 +83,13 @@ minikube環境にdeployする
 1. minikubeのdocker環境にイメージビルド
     ```sh
     minikube start
+    eval $(minikube docker-env)
 
+    # todo-service
     docker build -t todo-service:latest services/todo-service/
 
-    # weather-service
-    docker build -t weather-service:latest services/weather-service/
+    # stats-service
+    docker build -t stats-service:latest services/stats-service/
 
     # frontend
     docker build -t todo-frontend:latest services/frontend/
@@ -102,6 +104,16 @@ minikube環境にdeployする
     ```sh
     minikube service frontend -n todo-app
     ```
+## リソース確認
+```sh
+watch -t "kubectl get pod,service,ingress,deployment,configMap -o wide --namespace todo-app"
+```
+## 変更を反映
+```sh
+kubectl rollout restart deployment stats-service -n todo-app
+kubectl rollout restart deployment todo-service -n todo-app
+kubectl rollout restart deployment todo-fronend -n todo-app
+```
 ## 削除
 ```sh
 kubectl delete -f k8s/base -n todo-app

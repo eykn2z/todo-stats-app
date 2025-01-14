@@ -38,7 +38,7 @@ def get_redis_client():
 
 redis_client = get_redis_client()
 
-TODO_SERVICE_URL = os.getenv('TODO_SERVICE_URL', 'http://todo-service:5000')
+TODO_SERVICE_URL = os.getenv('TODO_SERVICE_URL', 'http://xxxxxx')
 
 def get_todos():
     try:
@@ -64,13 +64,13 @@ def get_stats():
                     return jsonify(json.loads(cached_stats))
             except redis.RedisError as e:
                 logger.error(f"Redis error: {e}")
-        
+
         # If no cache or redis error, compute new stats
         todos = get_todos()
         if not todos:
             logger.warning("No todos found or error fetching todos")
             return jsonify({
-                'error': 'Unable to fetch todos',
+                'error': f'Unable to fetch todos({TODO_SERVICE_URL})',
                 'total_todos': 0,
                 'completed_todos': 0,
                 'completion_rate': 0,

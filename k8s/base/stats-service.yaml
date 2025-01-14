@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stats-service
+spec:
+  selector:
+    matchLabels:
+      app: stats-service
+  template:
+    metadata:
+      labels:
+        app: stats-service
+    spec:
+      containers:
+      - name: stats-service
+        image: stats-service:latest
+        imagePullPolicy: Never
+        envFrom:
+        - configMapRef:
+            name: todo-app-config
+        ports:
+        - containerPort: 5001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stats-service
+spec:
+  type: NodePort  # NodePortに変更
+  selector:
+    app: stats-service
+  ports:
+  - port: 80
+    targetPort: 5001
+    nodePort: 30002  # 固定のNodePortを指定

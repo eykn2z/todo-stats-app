@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-service
+spec:
+  selector:
+    matchLabels:
+      app: todo-service
+  template:
+    metadata:
+      labels:
+        app: todo-service
+    spec:
+      containers:
+      - name: todo-service
+        image: todo-service:latest
+        imagePullPolicy: Never
+        envFrom:
+        - configMapRef:
+            name: todo-app-config
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-service
+spec:
+  type: NodePort  # NodePortに変更
+  selector:
+    app: todo-service
+  ports:
+  - port: 80
+    targetPort: 5000
+    nodePort: 30001  # 固定のNodePortを指定

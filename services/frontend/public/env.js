@@ -1,0 +1,4 @@
+window.ENV = {
+    REACT_APP_TODO_SERVICE_URL: '',
+    REACT_APP_STATS_SERVICE_URL: ''
+  };

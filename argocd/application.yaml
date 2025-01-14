@@ -11,7 +11,7 @@ spec:
     path: k8s/base
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: todo-app
   syncPolicy:
     automated:
       prune: true

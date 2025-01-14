@@ -1,7 +1,7 @@
 # todo-stats-app
 k8s学習用アプリ
 ## 画面
-<video src="./docs/images/capture.mov" controls="true"></video>
+https://github.com/user-attachments/assets/65e45a07-1354-43d1-9afd-2c4e08261109
 ## 構成
 ```mermaid
 flowchart TD
